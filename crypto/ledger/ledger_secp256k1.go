@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/btcsuite/btcd/btcec"
+	"github.com/btcsuite/btcd/btcec/v2"
+	btcecdsa "github.com/btcsuite/btcd/btcec/v2/ecdsa"
 	"github.com/pkg/errors"
 
 	tmbtcec "github.com/tendermint/btcd/btcec"
@@ -169,7 +170,7 @@ func warnIfErrors(f func() error) {
 }
 
 func convertDERtoBER(signatureDER []byte) ([]byte, error) {
-	sigDER, err := btcec.ParseDERSignature(signatureDER, btcec.S256())
+	sigDER, err := btcecdsa.ParseDERSignature(signatureDER)
 	if err != nil {
 		return nil, err
 	}
